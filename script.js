@@ -103,7 +103,8 @@ const getDirection = deg => {
   }
 }
 const FtoC=( f)=>{
-    const c = (f-32)*(5/9);
+    const c = Math.round((f-32)*(5/9));
+
     return c;
 }
 /**
@@ -112,7 +113,8 @@ const FtoC=( f)=>{
 const updateDom = data => {
   console.log('🔥 updating', data)
   // Current temperature
-  currentTemperature.innerText = data[0].main.temp.toFixed(1)
+  const currTemp=FtoC(data[0].main.temp.toFixed(1));
+  currentTemperature.innerText = currTemp;
 
   // Weather Icon
   // Use template literals to insert the in the below link, then set it as image source:
@@ -129,10 +131,12 @@ const updateDom = data => {
   windDirection.innerText = getDirection(data[0].wind.deg)
 
   // Lowest Temperature of the Day
-  lowestToday.innerText = Math.round(data[0].main.temp_min)
+    const min_temp=FtoC(Math.round(data[0].main.temp_min));
+  lowestToday.innerText = min_temp;
     
   // Highest Temperature of the Day
-  highestToday.innerText = Math.round(data[0].main.temp_max)
+  const max_temp= FtoC(Math.round(data[0].main.temp_max));
+  highestToday.innerText = max_temp;
 
   // Pressure
   pressure.innerText = data[0].main.pressure
